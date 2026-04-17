@@ -30,6 +30,10 @@ button:hover{
   transform:translateY(-2px);
 }
 
+.tooltip{
+  white-space:nowrap;
+}
+
 /* EMAIL BUTTON */
 .email-btn{
   background:#6366f1;
@@ -364,16 +368,17 @@ Open to opportunities, collaborations, or just a conversation.
    📧 Get in Touch
 </a>
 
-<button onclick="copyEmail(event)"
-   class="flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 transition">
+<button onclick="copyEmail(this)"
+   class="flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 transition relative overflow-visible">
+   
    📋 Copy Address
-</button>
 
-<!-- Tooltip -->
-<span id="copy-tooltip"
-      class="fixed text-xs bg-indigo-600 px-2 py-1 rounded opacity-0 pointer-events-none transition">
-  Copied!
-</span>
+   <!-- Tooltip (no id) -->
+   <span class="tooltip absolute -top-8 left-1/2 -translate-x-1/2 text-xs bg-indigo-600 px-3 py-1 rounded opacity-0 pointer-events-none transition-all duration-200">
+     Copied!
+   </span>
+
+</button>
 
 </div>
 
@@ -433,11 +438,10 @@ contact.style.transition = "0.8s ease";
 </script>
 
 <script>
-function copyEmail(e){
+function copyEmail(button){
   const email = "binitasaha15@gmail.com";
-  const tooltip = document.getElementById("copy-tooltip");
 
-  // Fallback method (works everywhere instantly)
+  // Instant copy (reliable)
   const tempInput = document.createElement("input");
   tempInput.value = email;
   document.body.appendChild(tempInput);
@@ -445,13 +449,16 @@ function copyEmail(e){
   document.execCommand("copy");
   document.body.removeChild(tempInput);
 
-  // Show tooltip immediately
-  tooltip.style.left = e.clientX + 10 + "px";
-  tooltip.style.top = e.clientY + 10 + "px";
+  // Find tooltip INSIDE this button only
+  const tooltip = button.querySelector(".tooltip");
+
+  // Show instantly
   tooltip.style.opacity = "1";
+  tooltip.style.transform = "translate(-50%, -5px)";
 
   setTimeout(() => {
     tooltip.style.opacity = "0";
+    tooltip.style.transform = "translate(-50%, 0)";
   }, 1200);
 }
 </script>
