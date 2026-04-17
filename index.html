@@ -27,7 +27,7 @@ nav{height:60px;}
   text-align:center;
 }
 
-.section{padding:30px 0;}
+.section{padding:10px 0;}
 
 .container{
   max-width:1000px;
@@ -108,10 +108,25 @@ HR Business Partner with 4.5+ years of experience driving workforce strategy, en
 </p>
 
 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-<div><h3 class="text-indigo-400 text-xl font-bold">4.5+</h3><p>Years</p></div>
-<div><h3 class="text-indigo-400 text-xl font-bold">2200+</h3><p>Employees</p></div>
-<div><h3 class="text-indigo-400 text-xl font-bold">110+</h3><p>Stay Interviews</p></div>
-<div><h3 class="text-indigo-400 text-xl font-bold">140+</h3><p>Offers</p></div>
+
+<div>
+  <h3 class="text-indigo-400 text-xl font-bold counter" data-target="4.5">0</h3>
+  <p>Years</p>
+</div>
+
+<div>
+  <h3 class="text-indigo-400 text-xl font-bold counter" data-target="2200">0</h3>
+  <p>Employees</p>
+</div>
+
+<div>
+  <h3 class="text-indigo-400 text-xl font-bold counter" data-target="110">0</h3>
+  <p>Stay Interviews</p>
+</div>
+
+<div>
+  <h3 class="text-indigo-400 text-xl font-bold counter" data-target="140">0</h3>
+  <p>Offers</p>
 </div>
 
 </div>
@@ -308,6 +323,37 @@ HRMS (Darwin box, Oracle) | Power Automate | MS Office Suite
 
 <script>
 lucide.createIcons();
+</script>
+
+<script>
+const counters = document.querySelectorAll('.counter');
+
+counters.forEach(counter => {
+  let started = false;
+
+  window.addEventListener('scroll', () => {
+    const rect = counter.getBoundingClientRect();
+
+    if (!started && rect.top < window.innerHeight) {
+      started = true;
+
+      let target = parseFloat(counter.dataset.target);
+      let count = 0;
+      let step = target / 50;
+
+      let interval = setInterval(() => {
+        count += step;
+
+        if (count >= target) {
+          counter.innerText = target + "+";
+          clearInterval(interval);
+        } else {
+          counter.innerText = count.toFixed(1);
+        }
+      }, 30);
+    }
+  });
+});
 </script>
 
 </body>
