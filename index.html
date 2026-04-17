@@ -374,7 +374,7 @@ Open to opportunities, collaborations, or just a conversation.
    📋 Copy Address
 
    <!-- Tooltip (no id) -->
-   <span class="tooltip absolute -top-8 left-1/2 -translate-x-1/2 text-xs bg-indigo-600 px-3 py-1 rounded opacity-0 pointer-events-none transition-all duration-200">
+   <span class="tooltip absolute top-full mt-2 left-1/2 -translate-x-1/2 text-xs bg-indigo-600 px-3 py-1 rounded opacity-0 pointer-events-none transition-all duration-200">
      Copied!
    </span>
 
@@ -441,7 +441,6 @@ contact.style.transition = "0.8s ease";
 function copyEmail(button){
   const email = "binitasaha15@gmail.com";
 
-  // Instant copy (reliable)
   const tempInput = document.createElement("input");
   tempInput.value = email;
   document.body.appendChild(tempInput);
@@ -449,16 +448,14 @@ function copyEmail(button){
   document.execCommand("copy");
   document.body.removeChild(tempInput);
 
-  // Find tooltip INSIDE this button only
   const tooltip = button.querySelector(".tooltip");
 
-  // Show instantly
   tooltip.style.opacity = "1";
-  tooltip.style.transform = "translate(-50%, -5px)";
+  tooltip.style.transform = "translate(-50%, 8px) scale(1)";
 
   setTimeout(() => {
     tooltip.style.opacity = "0";
-    tooltip.style.transform = "translate(-50%, 0)";
+    tooltip.style.transform = "translate(-50%, 0) scale(0.95)";
   }, 1200);
 }
 </script>
